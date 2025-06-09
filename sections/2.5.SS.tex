@@ -1,0 +1,83 @@
+The fourth model described in (Contreras-Espinoza et al., 2023) is a nonlinear state-space model with unobserved components for the negative binomial distribution, denoted SS. The authors followed the work of (Helske et al., 2021), using the exponential family state-space model and applying it to the
+negative binomial distribution. \\
+
+The same conditional density for $y_t$ used for the score-driven models, see Equation (\ref{eq:NB}), was also used in the SS model. In this case, the negative binomial model is approximated by a Gaussian model, and the estimation is performed using the Kalman filter procedure. \\
+
+The log-mean of $y_t$ is then formulated by Equations (\ref{eq:SS1})--(\ref{eq:SS2}):
+\allowdisplaybreaks
+\begin{align}
+    \ln f_t &= \delta_t + s_t \label{eq:SS1}\\
+    \delta_t & = \delta_{t-1} + \beta_{t-1} + \epsilon_{\delta, t} \\
+    \beta_t & = \beta_{t-1} + \epsilon_{\beta, t} \\
+    s_t &= D_t \gamma_t \\
+    D_t & = D_{\text{Monday}, t}, \dots, D_{\text{Sunday}, t} \\
+    \gamma_t &= \gamma_{t-1} + \epsilon_{\gamma, t} \\
+    \epsilon_{\gamma, t} &=(\epsilon_{\text{Monday}, t}, \dots, \epsilon_{\text{Sunday}, t}) \label{eq:SS2}
+\end{align}
+
+where $\delta_t$ (1 \emph{×} 1) is the local level component, $\beta_t$
+(1 \emph{×} 1) is the tend component, $s_t$ (1 \emph{×} 1) is the
+seasonality component, and $\gamma_t$ (7 \emph{×} 1) is the seasonality
+filter of time-varying parameters. It was assumed that
+\begin{align*}
+    \epsilon_{\delta, t} &\sim N(0,\sigma^2_{\delta}) \\
+    \epsilon_{\beta, t} &\sim N(0,\sigma^2_{\beta}) 
+\end{align*}
+and that
+\begin{align*}
+    \epsilon_{\gamma, t} & \sim N(0, \sigma^2_{\gamma}(I_7 - \frac{1}{7} i_7 i'_7))
+\end{align*}
+where $I_7$ is the identity matrix and $i_7$ is a (7 \emph{×} 1)
+vector of ones. In particular, this specification of the covariance matrix of $\epsilon_{\gamma, t}$ ensures that the sum of the seasonality filters is zero in each period. \\
+
+To proceed with the R implementation, the SS model has been cast into the state-space framework as follows:
+\begin{enumerate}
+
+\item Observation Equation:
+   \begin{equation*}
+   y_t = Z_t \alpha_t + \epsilon_t
+   \end{equation*}
+   with  \begin{equation*}
+       \alpha_t = \begin{pmatrix} 
+   \delta_t \\ 
+   \beta_t \\ 
+   \gamma_t 
+   \end{pmatrix}, \ \ \ Z_t &= \begin{pmatrix} 1 & 0 & D_t \end{pmatrix}
+   \end{equation*} 
+   
+   where $Z_t$ is the system matrix of the observation equation, considering the structure of \( \alpha_t \).
+
+\item State Equations:
+   \begin{align*}
+   \delta_t &= \delta_{t-1} + \beta_{t-1} + \epsilon_{\delta,t} \\
+   \beta_t &= \beta_{t-1} + \epsilon_{\beta,t} \\
+   \gamma_t &= \gamma_{t-1} + \epsilon_{\gamma,t}
+   \end{align*}
+   
+   These can be compactly written as
+   \begin{equation*}
+   \alpha_t = T_t \alpha_{t-1} + R_t \eta_t
+  \end{equation*}
+  with
+     \begin{align*}
+   T_t &= \begin{pmatrix} 1 & 1 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & I_7 \end{pmatrix} \\
+   R_t & = I_9 \\
+   \eta_t & = \begin{pmatrix}
+          \epsilon_{\delta, t} \\
+          \epsilon_{\beta, t} \\
+          \epsilon_{\gamma, t}
+      \end{pmatrix} \sim \mathcal{N}(0, Q_t) \\
+   Q_t &= \begin{pmatrix} \sigma^2_\delta & 0 & 0 \\ 0 & \sigma^2_\beta & 0 \\ 0 & 0 & \Sigma_\gamma \end{pmatrix}
+   \end{align*}
+
+  where $T_t$ is the state transition matrix, $R_t$ is the state disturbance matrix, and $\eta_t$ is the state disturbance vector assumed to be drawn from a multivariate normal distribution with mean zero and covariance matrix $Q_t$.
+
+\item Initial State:
+   \begin{equation*}
+   a_1 = \begin{pmatrix} \delta_1 \\ \beta_1 \\ \gamma_1 \end{pmatrix}, \quad P_1 = \text{cov}(\alpha_1)
+   \end{equation*}
+
+where $a_1$ is the initial state vector (assuming it starts at 0) and $P_1$ is the covariance matrix of the initial state, initialized with some large variance.
+\end{enumerate}
+
+The functions used to implement the SS model in R are available in the \texttt{SS.R} file. 

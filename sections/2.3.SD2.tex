@@ -1,0 +1,18 @@
+The (Contreras-Espinoza et al., 2023) paper also considers alternative specifications of the general score-driven model SD1 described in Section 2.2.
+The first one (denoted SD2) assumes that all seasonality parameters are identical, i.e., $\kappa_j = \kappa \ \ \ \forall j$. \\
+
+In the SD2 model, the dynamics of $\ln y_t$ are therefore formulated as follows:
+\begin{align*}
+    \ln y_t & = \delta_t + s_t \\
+    \delta_t &= \delta_{t-1} + \beta_{t-1} + \kappa_1 u_{t-1} \label{eq:SD1_1}\\
+    \beta_t &= \beta_{t-1} + k_2 u_{t-1}\\
+    s_t &= D_t \gamma_t \\
+    D_t &= (D_{\text{Monday},t}, \dots, D_{\text{Sunday},t}) \\
+    \gamma_t &= \gamma_{t-1} + \kappa u_{t-1} 
+\end{align*}
+where $\delta_t$ (1 \emph{×} 1) is the local level component, $\beta_t$ (1 \emph{×} 1) is the trend component, $s_t$ (1 \emph{×} 1) is the seasonality component, and $\gamma_t$ (7 \emph{×} 1) is a vector of seasonality filter whose elements are defined as
+\begin{equation*}
+    \gamma_t = (\gamma_{\text{Monday},t}, \dots, \gamma_{\text{Sunday},t})^{T}.
+\end{equation*}
+
+The functions used to implement the SD2 model in R are available in the \texttt{SD2.R} file. 

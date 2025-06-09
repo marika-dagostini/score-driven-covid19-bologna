@@ -1,0 +1,9 @@
+The second alternative specification of SD1 presented in (Contreras-Espinoza et al., 2023) assumes that only local-level and trend components are included in the model, i.e., $s_t = 0 \ \ \ \forall t = 1, \dots, T$. This latter specification is denoted as SDWS (score-driven without seasonality), and the dynamics of $\ln y_t$ are formulated as follows:
+\begin{align*}
+    \ln y_t & = \delta_t + s_t \\
+    \delta_t &= \delta_{t-1} + \beta_{t-1} + \kappa_1 u_{t-1} \label{eq:SD1_1}\\
+    \beta_t &= \beta_{t-1} + k_2 u_{t-1}
+\end{align*}
+where $\delta_t$ (1 \emph{×} 1) is the local level component and $\beta_t$ (1 \emph{×} 1) is the trend component. \\
+
+The functions used to implement the SDWS model in R are available in the \texttt{SDWS.R} file. 

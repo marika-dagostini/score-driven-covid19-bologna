@@ -1,0 +1,12 @@
+All models described in Sections 2.2-2.5 are estimated using the maximum likelihood method, in which the following log-likelihood (LL) function is maximized with respect to the parameter vector $\Theta$
+\begin{equation*}
+    \hat{\Theta} = \argmax_{\Theta} \text{LL}(y_1,\dots, y_T, \Theta) = \argmax_{\Theta} \sum_{t=1}^{T} \ln p(y_t|y_1, \dots, y_{t-1}, f_t, \Theta).
+\end{equation*}
+
+The performance of the different statistical models is compared using the AIC Akaike information criterion (AIC), the corrected AIC (AICc), and the  Bayesian Information Criterion (BIC) defined as follows
+\begin{align*}
+    \text{AIC} &= 2K-2 \ \hat{\text{LL}} \\
+    \text{AICc} &= \text{AIC} + \dfrac{2K(K+1)}{T-K-1} \\
+    \text{BIC} & = K \ln(T) - 2 \ \hat{\text{LL}}
+\end{align*}
+where $\hat{\text{LL}}$ is the maximum value of the log-likelihood, $K$ is the number of estimated time-invariant parameters, and $T$ denotes the sample size, i.e. the length of the time series. 

@@ -1,0 +1,37 @@
+In the score-driven models used to predict new COVID-19 cases described in (Contreras-Espinoza et al., 2023),
+\begin{equation*}
+    y_t \sim p(y_t|y_1,\dots,y_{t-1}, f_t, \Theta)
+\end{equation*}
+where $y_t$ denotes the number of new COVID-19 cases in period $t$, $f_t$ is the score-driven parameter, and $\Theta$ is a vector of constant parameters. \\
+
+Similar to the work of (Harvey \& Kattuman, 2020), the paper of (Contreras-Espinoza et al., 2023) assumes that the data-generating process for new COVID-19 cases is a negative binomial distribution with shape parameter $\nu$, and therefore the conditional density of $y_t$ is defined as
+\begin{equation}\label{eq:NB}
+    p(y_t|y_1, \dots,y_{t-1}, f_t, \theta) = \dfrac{\Gamma(\nu + y_t)}{y_t ! \ \Gamma(\nu)}  \left(\dfrac{f_t}{\nu+f_t}\right)^{y_t} \left(\dfrac{\nu}{\nu+f_t}\right)^{\nu}
+\end{equation}
+
+The dynamics of $\ln y_t$ are then formulated as follows:
+\begin{align}
+    \ln y_t & = \delta_t + s_t \\
+    \delta_t &= \delta_{t-1} + \beta_{t-1} + \kappa_1 u_{t-1} \label{eq:SD1_1}\\
+    \beta_t &= \beta_{t-1} + k_2 u_{t-1} \label{eq:SD1_2}\\
+    s_t &= D_t \gamma_t \\
+    D_t &= (D_{\text{Monday},t}, \dots, D_{\text{Sunday},t}) \\
+    \gamma_t &= \gamma_{t-1} + \kappa_t u_{t-1} \label{eq:SD1_3}
+\end{align}
+where $\delta_t$ (1 \emph{×} 1) is the local level component, $\beta_t$ (1 \emph{×} 1) is the trend component, $s_t$ (1 \emph{×} 1) is the seasonality component, and $\gamma_t$ (7 \emph{×} 1) is a vector of seasonality filter whose elements are defined as
+\begin{equation}
+    \gamma_t = (\gamma_{\text{Monday},t}, \dots, \gamma_{\text{Sunday},t})^{T}
+\end{equation}
+and where $\kappa_t$ is a (7 \emph{×} 1) vector with
+\begin{equation}
+    \kappa_{j, t} = \begin{cases}
+        \kappa_j, & \text{if} \ \ D_{j,t} = 1 \\
+        -\dfrac{\kappa_j}{7-1}, & \text{if} \ \ D_{j,t} = 0
+    \end{cases} \ \ \ \ \text{for} \ \ \ j \in \{ \text{Monday}, \dots, \text{Sunday}\}.
+\end{equation}
+
+Hence, in this first Score Driven model (SD1) parameters $\kappa_j$ are time-invariant. \\
+
+Finally, following the work of (Harvey \& Kattuman, 2020), the scaled score function updating term present in Equations (\ref{eq:SD1_1}), (\ref{eq:SD1_2}) and (\ref{eq:SD1_3}) is given by $u_t = \dfrac{y_t}{f_t} - 1$, which is the score function (i.e., the conditional score of the log-likelihood with respect to $f_t$) divided by the information quantity. \\
+
+The functions used to implement the SD1 model in R are available in the \texttt{SD1.R} file. 

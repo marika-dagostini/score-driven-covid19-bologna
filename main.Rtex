@@ -1,0 +1,177 @@
+\documentclass[a4paper,12pt]{article} 
+
+\usepackage[top = 3cm, bottom = 3cm, left = 2.5cm, right = 2.5cm]{geometry}
+ 
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{domitian}
+\usepackage{dsfont}
+\usepackage{lipsum}
+
+\usepackage[none]{hyphenat}
+\hyphenpenalty=1000
+\tolerance=500
+\emergencystretch=2.5em
+
+\usepackage{setspace}
+\onehalfspacing
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=black,      
+    urlcolor=blue}
+
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{booktabs} 
+\usepackage{graphicx}
+ 
+\usepackage{setspace}
+\setlength{\parindent}{0in}
+
+\usepackage{tablefootnote}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{blindtext} % for dummy text
+
+\usepackage{float}
+\usepackage{fancyhdr}
+\usepackage{microtype}
+\usepackage{titlesec}
+
+\usepackage{subfiles}
+
+\DeclareMathOperator*{\argmax}{argmax}
+
+\titleformat*{\section}{\large\bfseries}
+\titleformat*{\subsection}{\large\bfseries}
+
+\pagestyle{fancy} 
+\fancyhf{}
+
+\lhead{\footnotesize Time Series Modelling - Final Assignment}% \lhead puts text in the top left corner. \footnotesize sets our font to a smaller size.
+
+%\rhead works just like \lhead (you can also use \chead)
+\rhead{\footnotesize Marika D'Agostini} 
+
+% Similar commands work for the footer (\lfoot, \cfoot and \rfoot).
+% We want to put our page number in the center.
+\cfoot{\footnotesize \thepage} 
+
+\begin{document}
+			
+	\thispagestyle{empty} % This command disables the header on the first page. 
+	
+	\begin{tabular}{p{15.5cm}}
+		{\large \bf Time Series Modelling - Final Assignment} \rule[-2ex]{0pt}{2ex}\\
+	PhD in Statistical Sciences, University of Bologna \rule[-2ex]{0pt}{2ex}\\ July 15, 2024 \rule[-2ex]{0pt}{2ex} \\
+		\hline 
+		\\
+	\end{tabular} 
+	
+	\vspace*{0.4cm} 
+	
+	\begin{center} 
+		{\large \bf Discussion of the paper \\\textit{"COVID-19 Active Case Forecasts in Latin American Countries Using Score-Driven Models (Contreras-Espinoza et al., 2023)"}\\ \vspace{0.3em} with an application to COVID-19 Bologna data} 
+		\vspace{4mm}
+		
+		{\bf Marika D'Agostini}
+	\end{center}  
+	\vspace{0.4cm}
+
+\tableofcontents
+
+\newpage
+\section{Introduction}
+\subfile{sections/1.introduction}
+
+\section{Materials and Methods}
+\addtocontents{toc}{\vspace{0.5em}}
+\subsection{Study Area and COVID-19 Data}
+\vspace{0.4em}
+\subfile{sections/2.1.methods}
+
+
+\addtocontents{toc}{\vspace{0.2em}}
+\subsection{Score-Driven Model with Different Seasonality Components (SD1)}
+\vspace{0.4em}
+\subfile{sections/2.2.SD1}
+
+\addtocontents{toc}{\vspace{0.2em}}
+\subsection{Score-Driven Model with Equal Seasonality Components (SD2)}
+\vspace{0.4em}
+\subfile{sections/2.3.SD2}
+
+\addtocontents{toc}{\vspace{0.2em}}
+\subsection{Score-Driven Model without Seasonality Components (SDWS)}
+\vspace{0.4em}
+\subfile{sections/2.4.SDWS}
+
+\addtocontents{toc}{\vspace{0.2em}}
+\subsection{State-Space Model (SS)}
+\vspace{0.4em}
+\subfile{sections/2.5.SS}
+
+\addtocontents{toc}{\vspace{0.2em}}
+\subsection{Parameter Estimation and Statistical Performance}
+\vspace{0.4em}
+\subfile{sections/2.6.stat_metrics}
+
+\addtocontents{toc}{\vspace{0.2em}}
+\subsection{Prediction Performance}
+\vspace{0.4em}
+\subfile{sections/2.7.performance}
+
+\section{Results}
+\subfile{sections/3.results}
+
+\newpage
+\section{Discussion}
+\subfile{sections/4.discussion}
+
+\section{Conclusions}
+\subfile{sections/5.conclusions}
+
+
+\newpage
+\addcontentsline{toc}{section}{References}
+\section*{References}
+\begin{enumerate}
+    \item Blasques, F., Koopman, S. J., Łasak, K., \& Lucas, A. (2016). In-sample confidence bands and out-of-sample forecast bands for time-varying parameters in observation-driven models. \textit{International Journal of Forecasting}, \textit{32}(3), 875–887. doi:\href{https://doi.org/10.1016/j.ijforecast.2015.11.018}{10.1016/j.ijforecast.2015.11.018}
+
+    \item Caivano, M., Harvey, A., \& Luati, A. (2016). Robust time series models with trend and seasonal components. \textit{SERIEs: Journal of the Spanish Economic Association}, \textit{7}(1), 99–120. doi:\href{https://doi.org/10.1007/s13209-015-0134-1}{10.1007/s13209-015-0134-1}
+
+    \item Commandeur, J.J., \& Koopman, S.J. (2007) \textit{An Introduction to State Space Time Series Analysis}. ISBN: 978-0-19-922887-4
+
+    \item Contreras-Espinoza, S., Novoa-Muñoz, F., Blazsek, S., Vidal, P., \& Caamaño-Carrillo, C. (2022). COVID-19 active case forecasts in Latin American countries using score-driven models. \textit{Mathematics}, \textit{11}(1), 136. doi: \href{https://doi.org/10.3390/math11010136}{10.3390/math11010136}
+
+    \item Creal, D., Koopman, S. J., \& Lucas, A. (2013). Generalized autoregressive score models with applications. \textit{Journal of Applied Econometrics (Chichester, England)}, \textit{28}(5), 777–795. doi:\href{https://doi.org/10.1002/jae.1279}{10.1002/jae.1279}
+    
+    \item Dickey, D. A., \& Fuller, W. A. (1979). Distribution of the estimators for autoregressive time series with a unit root. \textit{Journal of the American Statistical Association}, \textit{74}(366), 427. doi:\href{https://doi.org/10.2307/2286348}{10.2307/2286348}
+    
+    \item Harvey, A., \& Kattuman, P. (2020). Time series models based on growth curves with applications to forecasting Coronavirus. \textit{Special Issue 1 - COVID-19: Unprecedented Challenges and Chances}. doi: \href{https://doi.org/10.1162/99608f92.828f40de}{10.1162/99608f92.828f40de}
+
+    \item Harvey, A., \& Lit, R. (2020) Coronavirus and the Score-Driven Negative Binomial Distribution. Time Series Lab—Article Series. Available online: \href{https://www.timeserieslab.com/articles/negbin.pdf}{https://www.timeserieslab.com/articles/negbin.pdf} (Last accessed June 24, 2024).
+
+    \item Harvey, A., \& Luati, A. (2014). Filtering with heavy tails. \textit{Journal of the American Statistical Association}, \textit{109}(507), 1112–1122. doi:\href{https://doi.org/10.1080/01621459.2014.887011}{10.1080/01621459.2014.887011}
+
+    \item Harvey, A. C. (1990). \textit{Forecasting, structural time series models and the Kalman filter}. Cambridge University Press. doi:\href{https://doi.org/10.1017/CBO9781107049994}{10.1017/cbo9781107049994}
+
+     \item Harvey, A. C. (2013). \textit{Dynamic models for volatility and heavy tails: With applications to financial and economic time series (Econometric society monographs)}. Cambridge University Press. doi:\href{https://doi.org/10.1017/cbo9781139540933}{10.1017/cbo9781139540933}
+
+     \item Harvey, A. C., \& Shephard, N. (1993). Structural time series models. In: \textit{Handbook of Statistics} (pp. 261–302). Econometrics. doi:\href{ https://doi.org/10.1016/S0169-7161(05)80045-8}{10.1016/s0169-7161(05)80045-8}
+    
+    \item Helske, J., Helske, M.J., \& Suggests, M.A. (2021). CRAN Package KFAS. Available online: \href{https://cran.r-project.org/web/packages/KFAS/index.html}{https://cran.r-project.org/web/packages/KFAS/index.html} (Last accessed June 24, 2024).
+    
+    \item Jarque, C. M., \& Bera, A. K. (1980). Efficient tests for normality, homoscedasticity and serial independence of regression residuals. \textit{Economics Letters}, \textit{6}(3), 255–259. doi:\href{https://doi.org/10.1016/0165-1765(80)90024-5}{10.1016/0165-1765(80)90024-5}
+
+    \item Leiva, V., Alcudia, E., Montano, J., \& Castro, C. (2023). An Epidemiological Analysis for Assessing and Evaluating COVID-19 Based on Data Analytics in Latin American Countries. \textit{Biology}, \textit{12}(6), 887. doi: \href{https://doi.org/10.3390/biology12060887}{10.3390/biology12060887}
+\end{enumerate}
+
+
+\end{document}
