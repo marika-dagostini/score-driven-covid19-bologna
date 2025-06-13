@@ -2,4 +2,4 @@
 
 This work was carried out as the final project for the *Time Series Modelling* course, part of the PhD program in Statistical Sciences at the University of Bologna (Academic Year 2023/2024).
 
-**Last update: June 2024**
+**Last update: July 2024**
